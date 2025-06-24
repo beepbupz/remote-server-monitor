@@ -23,7 +23,7 @@ A terminal-based SSH monitoring tool for multiple remote servers without requiri
 ### From source
 
 ```bash
-git clone https://github.com/yourorg/remote-server-monitor
+git clone https://github.com/beepbupz/remote-server-monitor
 cd remote-server-monitor
 pip install -e .
 ```
