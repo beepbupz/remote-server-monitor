@@ -359,9 +359,8 @@ class RemoteServerMonitor(App):
                 dashboard = ServerDashboard(server_config.name)
                 self.dashboards[server_config.name] = dashboard
                 
-                # Add tab
-                with tabs_container.add_tab(server_config.name, id=f"tab-{server_config.name}"):
-                    await self.mount(dashboard)
+                # Add tab using proper Textual API
+                tabs_container.add_pane(TabPane(server_config.name, dashboard, id=f"tab-{server_config.name}"))
             
             # Start metric collection
             server_names = [s.name for s in self.config.servers]
