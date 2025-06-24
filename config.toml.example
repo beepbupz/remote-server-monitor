@@ -1,0 +1,79 @@
+# Remote Server Monitor Configuration
+# Copy this file to config.toml and customize for your servers
+
+[general]
+# Polling interval in seconds for metric collection
+poll_interval = 2.0
+
+# Enable SSH compression for slow connections
+enable_compression = true
+
+# SSH connection timeout in seconds
+connection_timeout = 30
+
+# Number of retry attempts for failed connections
+retry_attempts = 3
+
+# Log level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+log_level = "INFO"
+
+# Server configurations
+# Add as many servers as needed
+[[servers]]
+name = "web-server-1"
+hostname = "192.168.1.10"
+username = "monitor"
+port = 22
+# Optional: specify SSH key file (defaults to ~/.ssh/id_rsa)
+# key_filename = "/home/user/.ssh/id_rsa"
+# Optional: tags for grouping servers
+tags = ["production", "web"]
+
+[[servers]]
+name = "db-server-1"
+hostname = "db.example.com"
+username = "monitor"
+port = 22
+tags = ["production", "database"]
+
+# Example of a development server
+# [[servers]]
+# name = "dev-server"
+# hostname = "dev.internal"
+# username = "developer"
+# port = 2222
+# tags = ["development"]
+
+# Metric collectors configuration
+[collectors]
+# System metrics (CPU, memory, disk, load)
+system = { enabled = true, interval = 2.0 }
+
+# Network metrics (interfaces, traffic)
+# network = { enabled = true, interval = 5.0 }
+
+# Web server metrics (Apache, Nginx)
+# webserver = { enabled = false, interval = 10.0 }
+
+# Node.js application metrics
+# nodejs = { enabled = false, interval = 10.0 }
+
+# Plugin configuration
+[plugins]
+# List of enabled plugins (must exist in plugins directory)
+enabled = []
+# enabled = ["mysql_monitor", "redis_monitor", "docker_monitor"]
+
+# Directory containing plugins
+directory = "./plugins"
+
+# Data export configuration
+[export]
+# Prometheus metrics exporter
+prometheus = { enabled = false, port = 9100 }
+
+# JSON file exporter
+json = { enabled = false, file = "/tmp/rsm-metrics.json" }
+
+# CSV file exporter (future feature)
+# csv = { enabled = false, file = "/tmp/rsm-metrics.csv" }

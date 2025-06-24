@@ -1,0 +1,85 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "remote-server-monitor"
+version = "0.1.0"
+description = "Terminal-based SSH monitoring tool for multiple remote servers"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "Apache-2.0 with Commons Clause"}
+authors = [
+    {name = "RSM Team", email = "rsm@example.com"}
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: System Administrators",
+    "License :: Other/Proprietary License",
+    "Operating System :: POSIX",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: System :: Monitoring",
+    "Topic :: System :: Systems Administration",
+]
+
+[project.dependencies]
+textual = ">=0.40.0"
+asyncssh = ">=2.14.0"
+tomli = ">=2.0.1"
+tomli-w = ">=1.0.0"
+rich = ">=13.0.0"
+aiofiles = ">=23.0.0"
+click = ">=8.1.0"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.1.0",
+    "black>=23.0.0",
+    "mypy>=1.5.0",
+    "ruff>=0.1.0",
+]
+
+[project.scripts]
+rsm = "rsm.__main__:main"
+
+[project.urls]
+Homepage = "https://github.com/yourorg/remote-server-monitor"
+Issues = "https://github.com/yourorg/remote-server-monitor/issues"
+Documentation = "https://github.com/yourorg/remote-server-monitor/docs"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["rsm*"]
+
+[tool.black]
+line-length = 88
+target-version = ['py39']
+
+[tool.ruff]
+line-length = 88
+target-version = "py39"
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+    "UP", # pyupgrade
+]
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
