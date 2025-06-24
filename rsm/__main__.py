@@ -11,7 +11,7 @@ from . import __version__
 @click.option(
     "--config",
     "-c",
-    type=click.Path(exists=True, path_type=Path),
+    type=click.Path(path_type=Path),
     default="config.toml",
     help="Path to configuration file",
 )
@@ -26,6 +26,12 @@ def main(config: Path, version: bool) -> None:
     if version:
         click.echo(f"Remote Server Monitor v{__version__}")
         sys.exit(0)
+    
+    # Check if config file exists when not showing version
+    if not config.exists():
+        click.echo(f"Error: Configuration file '{config}' does not exist.", err=True)
+        click.echo("Copy config.toml.example to config.toml and customize it.", err=True)
+        sys.exit(1)
     
     # Import here to avoid circular imports and speed up CLI
     from .ui.app import RemoteServerMonitor

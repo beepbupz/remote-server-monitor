@@ -26,15 +26,15 @@ classifiers = [
     "Topic :: System :: Monitoring",
     "Topic :: System :: Systems Administration",
 ]
-
-[project.dependencies]
-textual = ">=0.40.0"
-asyncssh = ">=2.14.0"
-tomli = ">=2.0.1"
-tomli-w = ">=1.0.0"
-rich = ">=13.0.0"
-aiofiles = ">=23.0.0"
-click = ">=8.1.0"
+dependencies = [
+    "textual>=0.40.0",
+    "asyncssh>=2.14.0",
+    "tomli>=2.0.1",
+    "tomli-w>=1.0.0",
+    "rich>=13.0.0",
+    "aiofiles>=23.0.0",
+    "click>=8.1.0",
+]
 
 [project.optional-dependencies]
 dev = [
@@ -50,9 +50,10 @@ dev = [
 rsm = "rsm.__main__:main"
 
 [project.urls]
-Homepage = "https://github.com/yourorg/remote-server-monitor"
-Issues = "https://github.com/yourorg/remote-server-monitor/issues"
-Documentation = "https://github.com/yourorg/remote-server-monitor/docs"
+Homepage = "https://github.com/beepbupz/remote-server-monitor"
+Issues = "https://github.com/beepbupz/remote-server-monitor/issues"
+Documentation = "https://github.com/beepbupz/remote-server-monitor"
+Repository = "https://github.com/beepbupz/remote-server-monitor"
 
 [tool.setuptools.packages.find]
 where = ["."]
