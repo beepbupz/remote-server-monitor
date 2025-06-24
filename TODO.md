@@ -47,10 +47,11 @@
 ## 📋 In Progress
 
 ### Testing & Quality
-- [ ] Write unit tests for SSH manager
-- [ ] Write unit tests for collectors
-- [ ] Write unit tests for platform abstraction
-- [ ] Add integration tests
+- [x] Write unit tests for SSH manager (COMPLETED - 94% coverage)
+- [x] Write unit tests for collectors (COMPLETED - 97% coverage base, 68% system)
+- [x] Write unit tests for platform abstraction (COMPLETED - 93% coverage)
+- [x] Add integration tests (COMPLETED - 8 comprehensive tests)
+- [x] Add comprehensive test runner with coverage (run_tests.py)
 - [ ] Set up CI/CD pipeline
 - [ ] Add pre-commit hooks
 

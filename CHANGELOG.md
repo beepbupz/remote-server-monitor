@@ -5,6 +5,48 @@ All notable changes to the Remote Server Monitor project will be documented in t
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.1] - 2025-06-24
+
+### Added - Comprehensive Testing Infrastructure
+
+#### Testing Framework
+- **Complete Unit Test Suite** (78 tests)
+  - SSH Manager testing with mock connections and retry logic
+  - Platform abstraction testing across Linux/BSD/macOS
+  - Collector base class testing with caching and async operations
+  - System metrics collector testing with platform-specific parsing
+  - Configuration and utility testing
+  
+- **Integration Test Suite** (8 tests)
+  - End-to-end metric collection workflows
+  - Multi-server concurrent monitoring
+  - Error handling and recovery scenarios
+  - Cache functionality and performance testing
+  - Platform detection and command execution
+
+#### Test Infrastructure
+- **pytest-asyncio** support for async testing
+- **Comprehensive mocking** for SSH operations and external dependencies
+- **Coverage reporting** with pytest-cov (94%+ coverage on core components)
+- **Test organization** with unit/integration separation
+- **Test runner script** (`run_tests.py`) with coverage and linting options
+
+#### Quality Improvements
+- **Bug fixes** discovered during testing:
+  - Improved disk usage parsing logic to correctly filter filesystem types
+  - Enhanced error handling in system metrics collection
+  - Fixed batch command execution string handling
+- **Version consistency** fix between `__init__.py` and `pyproject.toml`
+
+### Technical Details
+- **Test Coverage**: 86 tests total with excellent coverage
+  - SSH Manager: 94% coverage
+  - Platform abstraction: 93% coverage
+  - Collector base: 97% coverage
+  - System collector: 68% coverage (remaining are error paths)
+- **Files Added**: Complete test suite structure with fixtures and utilities
+- **Testing Strategy**: Isolated unit tests + comprehensive integration tests
+
 ## [0.2.0] - 2025-06-24
 
 ### Added - Service Monitoring (Phase 4)

@@ -265,8 +265,8 @@ class SystemMetricsCollector(MetricCollector):
                 try:
                     filesystem, size, used, avail, percent, mount = parts[:6]
                     
-                    # Skip special filesystems
-                    if filesystem.startswith('/dev/') or filesystem == 'Filesystem':
+                    # Include real filesystems (usually start with /dev/ or are mount points)
+                    if not filesystem.startswith(('tmpfs', 'proc', 'sys', 'dev')) and filesystem != 'Filesystem':
                         # Parse percentage (remove % sign)
                         usage_percent = float(percent.rstrip('%'))
                         
