@@ -19,7 +19,11 @@ from ..core.config import Config
 from ..core.ssh_manager import SSHConnectionPool, SSHConfig
 from ..collectors.base import CollectorRegistry, MetricData
 from ..collectors.system import SystemMetricsCollector
+from ..collectors.webserver import WebServerCollector
+from ..collectors.database import DatabaseCollector
+from ..collectors.process import ProcessCollector
 from ..utils.platform import PlatformManager
+from .widgets import WebServerWidget, DatabaseWidget, ProcessWidget
 
 
 logger = logging.getLogger(__name__)
@@ -228,7 +232,7 @@ class LoadWidget(MetricWidget):
         )
 
 
-class ServerDashboard(Container):
+class ServerDashboard(ScrollableContainer):
     """Dashboard for a single server."""
     
     def __init__(self, server_name: str, *args, **kwargs):
@@ -238,26 +242,51 @@ class ServerDashboard(Container):
         self.memory_widget = MemoryWidget()
         self.disk_widget = DiskWidget()
         self.load_widget = LoadWidget()
+        self.webserver_widget = WebServerWidget()
+        self.database_widget = DatabaseWidget()
+        self.process_widget = ProcessWidget()
     
     def compose(self) -> ComposeResult:
         """Compose the dashboard layout."""
         with Vertical():
             yield Label(f"Server: {self.server_name}", classes="server-title")
+            
+            # System metrics row
             with Horizontal(classes="metrics-row"):
                 yield self.cpu_widget
                 yield self.memory_widget
             with Horizontal(classes="metrics-row"):
                 yield self.disk_widget
                 yield self.load_widget
+            
+            # Service metrics row
+            with Horizontal(classes="services-row"):
+                yield self.webserver_widget
+                yield self.database_widget
+            
+            # Process metrics row
+            with Horizontal(classes="process-row"):
+                yield self.process_widget
     
     def update_metrics(self, metrics: Dict[str, MetricData]) -> None:
         """Update all metric widgets."""
+        # Update system metrics
         if "system" in metrics:
             system_data = metrics["system"]
             self.cpu_widget.update_metric(system_data)
             self.memory_widget.update_metric(system_data)
             self.disk_widget.update_metric(system_data)
             self.load_widget.update_metric(system_data)
+        
+        # Update service metrics
+        if "webserver" in metrics:
+            self.webserver_widget.update_metric(metrics["webserver"])
+        
+        if "database" in metrics:
+            self.database_widget.update_metric(metrics["database"])
+        
+        if "process" in metrics:
+            self.process_widget.update_metric(metrics["process"])
 
 
 class RemoteServerMonitor(App):
@@ -276,7 +305,23 @@ class RemoteServerMonitor(App):
         margin: 1;
     }
     
+    .services-row {
+        height: auto;
+        margin: 1;
+    }
+    
+    .process-row {
+        height: auto;
+        margin: 1;
+    }
+    
     MetricWidget {
+        width: 1fr;
+        height: auto;
+        margin: 0 1;
+    }
+    
+    WebServerWidget, DatabaseWidget, ProcessWidget {
         width: 1fr;
         height: auto;
         margin: 0 1;
@@ -344,6 +389,33 @@ class RemoteServerMonitor(App):
             )
             self.collector_registry.register(system_collector)
             self.collector_registry.enable("system")
+            
+            # Register webserver collector
+            webserver_collector = WebServerCollector(
+                self.ssh_pool,
+                self.platform_manager,
+                cache_duration=self.config.poll_interval
+            )
+            self.collector_registry.register(webserver_collector)
+            self.collector_registry.enable("webserver")
+            
+            # Register database collector
+            database_collector = DatabaseCollector(
+                self.ssh_pool,
+                self.platform_manager,
+                cache_duration=self.config.poll_interval
+            )
+            self.collector_registry.register(database_collector)
+            self.collector_registry.enable("database")
+            
+            # Register process collector
+            process_collector = ProcessCollector(
+                self.ssh_pool,
+                self.platform_manager,
+                cache_duration=self.config.poll_interval
+            )
+            self.collector_registry.register(process_collector)
+            self.collector_registry.enable("process")
             
             # Add servers to SSH pool and create tabs
             tabs_container = self.query_one("#server-tabs", TabbedContent)
