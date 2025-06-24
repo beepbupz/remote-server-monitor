@@ -73,6 +73,9 @@ venv.bak/
 # Configuration files (user-specific)
 config.toml
 
+# AI assistant files (local only)
+CLAUDE.md
+
 # Logs
 *.log
 
