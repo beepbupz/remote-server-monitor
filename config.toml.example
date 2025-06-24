@@ -49,14 +49,17 @@ tags = ["production", "database"]
 # System metrics (CPU, memory, disk, load)
 system = { enabled = true, interval = 2.0 }
 
-# Network metrics (interfaces, traffic)
-# network = { enabled = true, interval = 5.0 }
-
 # Web server metrics (Apache, Nginx)
-# webserver = { enabled = false, interval = 10.0 }
+webserver = { enabled = true, interval = 10.0 }
 
-# Node.js application metrics
-# nodejs = { enabled = false, interval = 10.0 }
+# Database metrics (MySQL, PostgreSQL, Redis)
+database = { enabled = true, interval = 10.0 }
+
+# Process metrics (Node.js, Python, Java, Docker)
+process = { enabled = true, interval = 5.0 }
+
+# Network metrics (interfaces, traffic) - Future feature
+# network = { enabled = false, interval = 5.0 }
 
 # Plugin configuration
 [plugins]

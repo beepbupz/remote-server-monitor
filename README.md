@@ -9,6 +9,9 @@ A terminal-based SSH monitoring tool for multiple remote servers without requiri
 - **Multi-server support** with tabbed interface
 - **Cross-platform** support (Linux, FreeBSD, OpenBSD, macOS)
 - **System metrics** monitoring (CPU, memory, disk, load)
+- **Service monitoring** (Apache, Nginx, MySQL, PostgreSQL, Redis)
+- **Process monitoring** (Node.js, Python, Java, Docker applications)
+- **Real-time dashboards** with color-coded health indicators
 - **Modular architecture** with plugin support
 - **Data export** capabilities (Prometheus, JSON)
 
@@ -158,9 +161,10 @@ Contributions are welcome! Please read CONTRIBUTING.md for guidelines.
 
 ## Roadmap
 
-- [ ] Service monitoring (Apache, Nginx, MySQL, PostgreSQL)
+- [x] Service monitoring (Apache, Nginx, MySQL, PostgreSQL, Redis) ✅
+- [x] Process monitoring (Node.js, Python, Java, Docker) ✅
 - [ ] Log tailing with filtering
 - [ ] Alert notifications
 - [ ] Historical data storage
 - [ ] Web dashboard
-- [ ] Container monitoring
+- [ ] Enhanced container monitoring

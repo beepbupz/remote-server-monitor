@@ -5,6 +5,60 @@ All notable changes to the Remote Server Monitor project will be documented in t
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2025-06-24
+
+### Added - Service Monitoring (Phase 4)
+
+#### Service Collectors
+- **WebServer Collector** (`rsm/collectors/webserver.py`)
+  - Apache and Nginx monitoring with status, ports, and configuration validation
+  - Performance metrics collection (mod_status, stub_status)
+  - Process count and worker monitoring
+  - Connection and request statistics
+
+- **Database Collector** (`rsm/collectors/database.py`)
+  - MySQL, PostgreSQL, and Redis monitoring
+  - Accessibility checks and connection statistics
+  - Version information and performance metrics
+  - Database count and uptime tracking
+
+- **Process Collector** (`rsm/collectors/process.py`)
+  - Node.js, Python, Java, and Docker process monitoring
+  - CPU and memory usage tracking per process type
+  - PM2 process manager integration
+  - Container listing and system information
+
+#### UI Enhancements
+- **Service Status Widgets** (`rsm/ui/widgets/service_widgets.py`)
+  - WebServerWidget for Apache/Nginx status display
+  - DatabaseWidget for database accessibility and metrics
+  - ProcessWidget with tabular process resource usage
+  - Color-coded health indicators (green/yellow/red)
+
+- **Enhanced Dashboard Layout**
+  - Extended server dashboard with service monitoring sections
+  - Improved scrollable container for better navigation
+  - New CSS styling for service widgets
+  - Responsive design for different terminal sizes
+
+#### Architecture Improvements
+- Modular collector design following established patterns
+- Cross-platform command compatibility (Linux/BSD/macOS)
+- Graceful degradation for unavailable services
+- Concurrent command execution for improved performance
+- Type-safe implementation with comprehensive annotations
+
+### Changed
+- Updated collector registry to include new service collectors
+- Enhanced main application with automatic service collector registration
+- Improved error handling and logging throughout service monitoring
+
+### Technical Details
+- **Files Added**: 4 new files (webserver.py, database.py, process.py, service_widgets.py)
+- **Files Modified**: 3 existing files enhanced with new functionality
+- **Total LOC Added**: ~1,500 lines of production-ready code
+- **Services Supported**: Apache, Nginx, MySQL, PostgreSQL, Redis, Node.js, Python, Java, Docker
+
 ## [0.1.0] - 2025-01-24
 
 ### Added - Initial Implementation
